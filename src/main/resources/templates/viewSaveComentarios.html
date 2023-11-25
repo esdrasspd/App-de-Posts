@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Guardar Comentario</title>
+    <th:block th:include="layout.html"></th:block>
+</head>
+
+<body>
+
+    <div class="container mt-4">
+        <h2>Guardar Comentario</h2>
+
+        <form action="/save/Comentarios" method="post">
+            <!-- Nombre del libro -->
+            <div class="form-group">
+                <label for="nombreLibro">Nombre:</label>
+                <input type="text" class="form-control" id="titulo" name="cuerpo_comentario" required>
+            </div>
+
+            <!--Post-->
+            <div class="form-group">
+                <label for="post">Post:</label>
+                <select class="form-control" id="post" name="post_id" required>
+                    <option th:each="post : ${post}" th:value="${post.id}" th:text="${post.titulo}"
+                       ></option>
+                </select>
+
+                <br>
+
+            <!-- Botón de enviar -->
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

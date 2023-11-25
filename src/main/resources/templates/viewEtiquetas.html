@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Módulo de Etiquetas</title>
+    <th:block th:include="layout.html"></th:block>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <a class="navbar-brand" href="#" style="color: white; font-weight: bold;">Tus Mejores Posts</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/" style="color: white;">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/posts" style="color: white;">Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/categorias" style="color: white;">Categorias</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/etiquetas" style="color: white;">Etiquetas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/comentarios" style="color: white;">Comentarios</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+
+        
+        <form action="/findEtiquetaById" method="post">
+            <div class="form-group">
+                <label for="titulo">Nombre</label>
+                <select name="id" class="form-control form-control-sm">
+                    <option value="">Selecciona una opción</option>
+                    <th:block th:each="etiqueta : ${etiquetasSelected}">
+                        <option th:value="${etiqueta.id}" th:text="${etiqueta.nombre}" th:selected="${etiqueta.id eq id}"></option>
+                </select>
+                <br>
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </form>
+
+        <!-- Botón para agregar libro -->
+        <div class="mb-4">
+            <a href="/etiquetas/add" class="btn btn-success">Agregar Etiqueta</a>
+        </div>
+    
+        <!-- Tabla de libros -->
+        <div>
+            <h2>Listado de Etiquetas</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Iterar sobre la lista de libros proporcionada por Spring -->
+                <th:block th:each="etiqueta : ${etiquetas}">
+                    <tr>
+                        <td th:text="${etiqueta.nombre}"></td>
+                        <td>
+                            <a th:href="@{/editEtiqueta/{id}(id=${etiqueta.id})}" class="btn btn-warning">Editar</a>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    
+    </div>
+</body>
+
+</html>

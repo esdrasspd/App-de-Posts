@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Guardar Post</title>
+    <th:block th:include="layout.html"></th:block>
+</head>
+
+<body>
+
+    <div class="container mt-4">
+        <h2>Guardar Post</h2>
+        <form action="/savePosts" method="post">
+            <!-- Nombre del libro -->
+            <div class="form-group">
+                <label for="nombreLibro">Título:</label>
+                <input type="text" class="form-control" id="titulo" name="titulo"  required>
+            </div>
+
+            <!-- Fecha de Publicación -->
+            <div class="form-group">
+                <label for="fechaPublicacion">Fecha de Publicación:</label>
+                <input type="text" class="form-control" id="anoPublicacion" name="fechaPublicacion"
+                  required placeholder="Ej. 12/01/2023">
+            </div>
+
+            <!-- Contenido -->
+            <div class="form-group">
+                <label for="Contenido">Contenido:</label>
+                <input type="text" class="form-control" id="contenido" name="contenido" required>
+            </div>
+
+            <!-- Autor (select) -->
+            <div class="form-group">
+                <label for="categoria">Categoría:</label>
+                <select class="form-control" id="categoria" name="categoriaId" required>
+                    <option th:each="categoria : ${categorias}" th:value="${categoria.id}" th:text="${categoria.nombre}"></option>
+                </select>
+            </div>
+
+            <!--Etiqueta-->
+            <div class="form-group">
+                <label for="etiqueta">Etiqueta:</label>
+                <select class="form-control" id="etiqueta" name="etiquetaId" required>
+                    <option th:each="etiqueta : ${etiquetas}" th:value="${etiqueta.id}" th:text="${etiqueta.nombre}"></option>
+                </select>
+            </div>
+
+            <!-- Botón de enviar -->
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

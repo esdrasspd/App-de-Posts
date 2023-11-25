@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Guardar Etiqueta</title>
+    <th:block th:include="layout.html"></th:block>
+</head>
+
+<body>
+
+    <div class="container mt-4">
+        <h2>Guardar Etiqueta</h2>
+
+        <form action="/etiqueta/save" method="post">
+            <!-- Nombre del libro -->
+            <div class="form-group">
+                <label for="nombreLibro">Nombre:</label>
+                <input type="text" class="form-control" id="titulo" name="nombre" required>
+            </div>
+
+            <!-- Botón de enviar -->
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

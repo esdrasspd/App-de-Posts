@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Módulo de Posts</title>
+    <th:block th:include="layout.html"></th:block>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <a class="navbar-brand" href="#" style="color: white; font-weight: bold;">Tus Mejores Posts</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/" style="color: white;">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/posts" style="color: white;">Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/categorias" style="color: white;">Categorias</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/etiquetas" style="color: white;">Etiquetas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/comentarios" style="color: white;">Comentarios</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+
+        
+        <form action="/findPosts" method="post">
+            <div class="form-group">
+                <label for="titulo">Título del Post</label>
+                <select name="id" class="form-control form-control-sm">
+                    <option value="">Selecciona una opción</option>
+                    <th:block th:each="posts : ${postSelected}">
+                        <option th:value="${posts.id}" th:text="${posts.titulo}" th:selected="${posts.id eq id}"></option>
+                </select>
+                <br>
+                <label for="categorias">Categoría:</label>
+                <select name="categoriaId" class="form-control form-control-sm">
+                    <option value="">Selecciona una opción</option>
+                    <th:block th:each="categorias : ${categoriaSelected}">
+                        <option th:value="${categorias.id}" th:text="${categorias.nombre}" th:selected="${categorias.id eq categoriaId}"></option>
+                </select>
+                <br>
+                <label for="etiquetas">Etiqueta:</label>
+                <select name="etiquetasId" class="form-control form-control-sm" >
+                    <option value="">Selecciona una opción</option>
+                    <th:block th:each="etiquetas : ${etiquetaSelected}">
+                        <option th:value="${etiquetas.id}" th:text="${etiquetas.nombre}" th:selected="${etiquetas.id eq etiquetasId}"></option>
+                </select>
+                <br>
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </form>
+
+        <!-- Botón para agregar libro -->
+        <div class="mb-4">
+            <a href="/addPosts" class="btn btn-success">Agregar Post</a>
+        </div>
+    
+        <!-- Tabla de libros -->
+        <div>
+            <h2>Listado de Posts</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Título</th>
+                    <th scope="col">Fecha de Publicación</th>
+                    <th scope="col">Contenido</th>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Etiqueta</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Iterar sobre la lista de libros proporcionada por Spring -->
+                <th:block th:each="posts : ${posts}">
+                    <tr>
+                        <td th:text="${posts.titulo}"></td>
+                        <td th:text="${posts.fechaPublicacion}"></td>
+                        <td th:text="${posts.contenido}"></td>
+                        <td th:text="${posts.categoria.nombre}"></td>
+                        <td th:text="${posts.etiquetas.nombre}"></td>
+                        <td>
+                            <a th:href="@{/editPosts/{id}(id=${posts.id})}" class="btn btn-warning">Editar</a>
+                           
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    
+    </div>
+</body>
+
+</html>
